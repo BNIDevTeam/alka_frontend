@@ -167,6 +167,12 @@ export default async function DonationDetailsPage({
                 <pre className="mt-2 max-h-[420px] overflow-auto rounded-xl bg-slate-950 p-4 text-xs text-slate-100">
                   {JSON.stringify(razorpay, null, 2)}
                 </pre>
+              </div>
+              <div>
+                <p className="text-xs font-medium uppercase tracking-wider text-gray-500">Raw Razorpay Response</p>
+                <pre className="mt-2 max-h-[420px] overflow-auto rounded-xl bg-slate-950 p-4 text-xs text-slate-100">
+                  {JSON.stringify(razorpay, null, 2)}
+                </pre>
               </div> */}
             </div>
           ) : (
