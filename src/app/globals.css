@@ -1,0 +1,469 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------
+   THEME TOKENS (Light default)
+   Palette:
+   Primary:  #62109F
+   Danger:   #DC0E0E
+   Accent:   #FE6244
+   White:    #FFFFFF
+---------------------------------------------- */
+
+:root {
+  /* Brand */
+  --primary: #62109f;
+  --danger: #dc0e0e;
+  --accent: #fe6244;
+  --gold: #fab95b;
+  --success: #75b06f;
+  --overview-bg: #fcfaf5;
+  --alka4: #e83c91;
+  --alka3: #48a111;
+  --alka2: #1e90ff;
+  --alka1: #f9a109;
+
+  /* Surfaces */
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #fff7f5; /* soft tint for sections */
+
+  /* Text */
+  --text: #0f172a; /* slate-900 */
+  --text-muted: rgba(15, 23, 42, 0.72);
+
+  /* Borders / shadow */
+  --border: rgba(15, 23, 42, 0.12);
+
+  /* Navbar / Footer */
+  --navbar-bg: rgba(255, 255, 255, 0.72);
+  --navbar-text: #0f172a;
+  --footer-bg: #0b0b12;
+  --footer-text: rgba(255, 255, 255, 0.86);
+
+  /* Radius */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  /* Typography scale (keep simple; Tailwind handles most) */
+  --font-base: 1rem;
+}
+
+/* ---------------------------------------------
+   DARK THEME (manual)
+   Apply by: <html data-theme="dark">
+---------------------------------------------- */
+html[data-theme="dark"] {
+  --bg: #070711;
+  --surface: #0d0d1a;
+  --surface-2: #11112a;
+
+  --text: rgba(255, 255, 255, 0.92);
+  --text-muted: rgba(255, 255, 255, 0.72);
+
+  --border: rgba(255, 255, 255, 0.14);
+
+  --navbar-bg: rgba(13, 13, 26, 0.72);
+  --navbar-text: rgba(255, 255, 255, 0.92);
+
+  --footer-bg: #05050c;
+  --footer-text: rgba(255, 255, 255, 0.82);
+}
+
+/* ---------------------------------------------
+   SYSTEM PREFERENCE (only if user didn't choose)
+---------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) {
+    --bg: #070711;
+    --surface: #0d0d1a;
+    --surface-2: #11112a;
+
+    --text: rgba(255, 255, 255, 0.92);
+    --text-muted: rgba(255, 255, 255, 0.72);
+
+    --border: rgba(255, 255, 255, 0.14);
+
+    --navbar-bg: rgba(13, 13, 26, 0.72);
+    --navbar-text: rgba(255, 255, 255, 0.92);
+
+    --footer-bg: #05050c;
+    --footer-text: rgba(255, 255, 255, 0.82);
+  }
+}
+
+/* ---------------------------------------------
+   Tailwind bridge
+---------------------------------------------- */
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --color-danger: var(--danger);
+  --color-gold: var(--gold);
+  --color-success: var(--success);
+
+  --font-sans: var(
+    --font-inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    "Noto Sans",
+    "Apple Color Emoji",
+    "Segoe UI Emoji"
+  );
+  --font-serif: var(
+    --font-playfair,
+    ui-serif,
+    Georgia,
+    "Times New Roman",
+    Times,
+    serif
+  );
+}
+
+/* ---------------------------------------------
+   Reset + base
+---------------------------------------------- */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--font-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Typography defaults (minimal; Tailwind handles most) */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+/* Better focus rings */
+:focus-visible {
+  outline: 3px solid color-mix(in oklab, var(--primary), white 25%);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+/* ---------------------------------------------
+   Reusable utilities (avoid per-component CSS)
+---------------------------------------------- */
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section {
+    @apply py-14 sm:py-16 lg:py-20;
+  }
+
+  .h1 {
+    @apply font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight;
+  }
+
+  .h2 {
+    @apply font-serif text-3xl sm:text-4xl lg:text-5xl tracking-tight;
+  }
+
+  .p-muted {
+    color: var(--text-muted);
+    @apply leading-relaxed;
+  }
+
+  .card {
+    background: color-mix(in oklab, var(--surface), transparent 8%);
+    border: 1px solid var(--border);
+    @apply rounded-2xl shadow-sm;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    @apply inline-flex items-center justify-center rounded-xl px-5 py-3
+      font-semibold text-white transition hover:opacity-90 active:opacity-80;
+  }
+
+  .btn-accent {
+    background: var(--accent);
+    @apply inline-flex items-center justify-center rounded-xl px-5 py-3
+      font-semibold text-white transition hover:opacity-90 active:opacity-80;
+  }
+
+  .btn-danger {
+    background: var(--danger);
+    @apply inline-flex items-center justify-center rounded-xl px-5 py-3
+      font-semibold text-white transition hover:opacity-90 active:opacity-80;
+  }
+
+  .btn-ghost {
+    border: 1px solid var(--border);
+    @apply inline-flex items-center justify-center rounded-xl px-5 py-3
+      font-semibold transition hover:bg-black/5;
+  }
+}
+
+/* Dark mode hover fix for ghost button */
+html[data-theme="dark"] .btn-ghost {
+  @apply hover:bg-white/10;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) .btn-ghost {
+    @apply hover:bg-white/10;
+  }
+}
+
+/* Add to your existing CSS */
+
+/* Smooth gradient transitions */
+* {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* Gradient text utility classes */
+.gradient-text-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-accent {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gradient border utility */
+.gradient-border {
+  position: relative;
+  border: 2px solid transparent;
+  background: var(--surface);
+  background-clip: padding-box;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
+  z-index: -1;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  border-radius: inherit;
+}
+
+/* ---------------------------------------------
+   Footer Top Sweep (Blissclub style)
+   Stable text + moving dark shadow band
+---------------------------------------------- */
+/* ✅ Top Animated Tagline Strip (Blissclub style - LEFT TO RIGHT) */
+.alka-footer-sweep {
+  position: relative;
+  overflow: hidden;
+  background: #000; /* or your footer background color */
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* edge fade */
+.alka-footer-sweep::before,
+.alka-footer-sweep::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 140px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.alka-footer-sweep::before {
+  left: 0;
+  background: linear-gradient(90deg, #000, transparent);
+}
+
+.alka-footer-sweep::after {
+  right: 0;
+  background: linear-gradient(270deg, #000, transparent);
+}
+
+/* subtle ambient glow behind text */
+.alka-footer-sweep-glow {
+  position: absolute;
+  inset: -40px -60px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.65;
+  background:
+    radial-gradient(
+      700px 140px at 25% 50%,
+      rgba(255, 255, 255, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      700px 140px at 75% 50%,
+      rgba(255, 255, 255, 0.16),
+      transparent 60%
+    );
+  filter: blur(18px);
+}
+
+.alka-footer-sweep-inner {
+  position: relative;
+  z-index: 1;
+  padding: 26px 0;
+}
+
+/* ✅ Stable text with moving light (LEFT TO RIGHT) */
+.alka-footer-sweep-text {
+  font-family: serif; /* or your preferred font */
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  text-transform: capitalize;
+  font-size: clamp(80px, 6.5vw, 106px);
+
+  /* Make text transparent to show the moving light */
+  color: transparent;
+
+  /* EXACT Blissclub shimmer gradient */
+  background: linear-gradient(
+      271.73deg,
+      /* rgba(255, 255, 255, 0) 1.92%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 99% */
+      #df3386 1.92%,
+      #6635afcc 50%,
+      #e5484dd9 99%
+    )
+    0 0 / 200% auto; /* Start with light off-screen right */
+
+  /* Important: background size must be larger than container */
+  background-size: 200%;
+
+  /* Clip to text */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Depth shadow */
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.55));
+
+  /* Animation: left to right */
+  animation: shimmer 5s linear infinite;
+  will-change: background-position;
+}
+
+/* LEFT TO RIGHT animation */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0; /* Start position - light off-screen right */
+  }
+  100% {
+    background-position: -200% 0; /* End position - light off-screen left */
+  }
+}
+
+/* Responsive edge fade */
+@media (max-width: 640px) {
+  .alka-footer-sweep::before,
+  .alka-footer-sweep::after {
+    width: 72px;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .alka-footer-sweep-text {
+    animation: none;
+    background-position: 50% 0; /* Center the light */
+  }
+}
+
+.alka-footer-sweep-logoWrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px; /* space between logo and text */
+}
+
+.alka-footer-sweep-logo {
+  height: 44px; /* adjust size */
+  width: auto;
+  opacity: 0.92;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.5));
+}
+
+@media (max-width: 640px) {
+  .alka-footer-sweep-logo {
+    height: 36px;
+  }
+}
+
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 15s linear infinite;
+}
+
+/* Optional: Pause on hover */
+.animate-spin-slow:hover {
+  animation-play-state: paused;
+}
+
+a { text-decoration: none; color: inherit; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes blob { 0%,100% { transform: translate(0,0) scale(1);} 33% { transform: translate(30px,-50px) scale(1.1);} 66% { transform: translate(-20px,20px) scale(0.9);} }
+.animate-fadeInUp { animation: fadeInUp 0.6s ease-out; }
+.animate-slideIn { animation: slideIn 0.3s ease-out; }
+.animate-blob { animation: blob 7s infinite; }
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+.loading-skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: loading 1.5s infinite; }
+@keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
